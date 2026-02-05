@@ -226,8 +226,6 @@ function imprimirTicket(index) {
                 </div>
                 <div class="section"><div class="label">CLIENTE</div><div class="value">${trabajo.cliente}</div></div>
                 <div class="section"><div class="label">FECHA</div><div class="value">${trabajo.fechaFormateada}</div></div>
-                <div class="section"><div class="label">HORARIO</div><div class="value">${trabajo.horaInicio} - ${trabajo.horaFin}</div></div>
-                <div class="section"><div class="label">TIEMPO</div><div class="value">${trabajo.horasTrabajadas.toFixed(2)} Horas</div></div>
                 <div class="section"><div class="label">DESCRIPCIÓN</div><div>${trabajo.descripcion}</div></div>
                 <div class="total-section">TOTAL: $${trabajo.montoTotal.toFixed(2)}</div>
             </div>
