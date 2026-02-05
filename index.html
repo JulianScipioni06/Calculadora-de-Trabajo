@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Trabajo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+        <h1>💼 Calculadora de Trabajo</h1>
+        <p class="subtitle">Calcula el monto según las horas trabajadas</p>
+        
+        <div class="input-group">
+            <label for="cliente">👤 Nombre del Cliente</label>
+            <input type="text" id="cliente" placeholder="Ej: Juan Pérez" required>
+        </div>
+
+        <div class="input-group">
+            <label for="descripcion">📝 Descripción del Trabajo</label>
+            <textarea id="descripcion" placeholder="Ej: Reparación de instalación eléctrica" rows="3" required></textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="fecha">📅 Fecha del trabajo</label>
+            <input type="date" id="fecha" required>
+        </div>
+
+        <div class="input-group">
+            <label>⏰ Horario de trabajo</label>
+            <div class="time-inputs">
+                <div>
+                    <label for="inicio" style="font-weight: 400; font-size: 12px; color: #888;">Hora de inicio</label>
+                    <input type="time" id="inicio" required>
+                </div>
+                <div>
+                    <label for="fin" style="font-weight: 400; font-size: 12px; color: #888;">Hora de fin</label>
+                    <input type="time" id="fin" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="tarifa">💵 Tarifa por hora ($)</label>
+            <input type="number" id="tarifa" min="0" step="0.01" placeholder="Ej: 15.00" required>
+        </div>
+
+        <button class="calculate-btn" onclick="calcular()">Calcular Monto</button>
+
+        <div class="result" id="resultado">
+            <div class="result-item">
+                <span class="result-label">Cliente:</span>
+                <span class="result-value" id="resultCliente"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Descripción:</span>
+                <span class="result-value" id="resultDescripcion"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Fecha:</span>
+                <span class="result-value" id="resultFecha"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Horario:</span>
+                <span class="result-value" id="resultHorario"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Horas trabajadas:</span>
+                <span class="result-value" id="resultHoras"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Tarifa por hora:</span>
+                <span class="result-value" id="resultTarifa"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">MONTO TOTAL:</span>
+                <span class="result-value total" id="resultTotal"></span>
+            </div>
+        </div>
+
+        <div class="info-text">
+            💡 La calculadora considera el tiempo transcurrido entre las horas ingresadas
+        </div>
+        </div>
+
+        <!-- Sección de Historial -->
+        <div class="history-section">
+            <div class="history-header">
+                <h2>📋 Historial de Trabajos</h2>
+                <button class="clear-history-btn" onclick="limpiarHistorial()">🗑️ Limpiar</button>
+            </div>
+            <div id="historial" class="history-list">
+                <p class="empty-history">No hay registros guardados</p>
+            </div>
+            <div class="history-summary" id="resumenTotal" style="display: none;">
+                <div class="summary-item">
+                    <span>Total de trabajos:</span>
+                    <span id="totalTrabajos">0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Horas totales:</span>
+                    <span id="totalHoras">0</span>
+                </div>
+                <div class="summary-item total-earned">
+                    <span>Total ganado:</span>
+                    <span id="totalGanado">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
