@@ -29,7 +29,7 @@
 
         <div class="input-group">
             <label>⏰ Horario de trabajo</label>
-            <div class="time-inputs">
+            <!-- <div class="time-inputs">
                 <div>
                     <label for="inicio" style="font-weight: 400; font-size: 12px; color: #888;">Hora de inicio</label>
                     <input type="time" id="inicio" required>
@@ -37,6 +37,15 @@
                 <div>
                     <label for="fin" style="font-weight: 400; font-size: 12px; color: #888;">Hora de fin</label>
                     <input type="time" id="fin" required>
+                </div>
+            </div> -->
+            <div class="cronometro-container">
+                <div id="tiempo">00:00:00</div>
+
+                <div class="botones">
+                    <button class="btn-inicio" onclick="iniciar()">Iniciar</button>
+                    <button class="btn-pausa" onclick="pausar()">Pausar</button>
+                    <button class="btn-reset" onclick="reiniciar()">Reiniciar</button>
                 </div>
             </div>
         </div>

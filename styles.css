@@ -404,3 +404,39 @@ textarea:focus {
 .history-list::-webkit-scrollbar-thumb:hover {
     background: #764ba2;
 }
+
+/*CRONOMETRO--------------------------*/
+.cronometro-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+#tiempo {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: monospace;
+}
+
+.botones button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn-inicio { background-color: #28a745; color: white; }
+.btn-inicio:hover { background-color: #218838; }
+
+.btn-pausa { background-color: #ffc107; color: black; }
+.btn-pausa:hover { background-color: #e0a800; }
+
+.btn-reset { background-color: #dc3545; color: white; }
+.btn-reset:hover { background-color: #c82333; }
