@@ -3,96 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bios Informatica - Calculadora</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Calculadora de Trabajo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="calculator">
-        <h1>💼 Calculadora de Trabajo</h1>
-        <p class="subtitle">Calcula el monto según las horas trabajadas</p>
-        
-        <div class="input-group">
-            <label for="cliente">👤 Nombre del Cliente</label>
-            <input type="text" id="cliente" placeholder="Ej: Juan Pérez" required>
-        </div>
+            <h1>💼 Calculadora de Trabajo</h1>
+            
+            <div class="input-group">
+                <label for="cliente">👤 Nombre del Cliente</label>
+                <input type="text" id="cliente" placeholder="Ej: Juan Pérez" required>
+            </div>
 
-        <div class="input-group">
-            <label for="descripcion">📝 Descripción del Trabajo</label>
-            <textarea id="descripcion" placeholder="Ej: Reparación de instalación eléctrica" rows="3" required></textarea>
-        </div>
+            <div class="input-group">
+                <label for="descripcion">📝 Descripción del Trabajo</label>
+                <textarea id="descripcion" placeholder="Ej: Reparación de instalación eléctrica" rows="3" required></textarea>
+            </div>
 
-        <div class="input-group">
-            <label for="fecha">📅 Fecha del trabajo</label>
-            <input type="date" id="fecha" required>
-        </div>
+            <div class="input-group">
+                <label for="fecha">📅 Fecha del trabajo</label>
+                <input type="date" id="fecha" required>
+            </div>
 
-        <div class="input-group">
-            <label>⏰ Horario de trabajo</label>
-            <!-- <div class="time-inputs">
-                <div>
-                    <label for="inicio" style="font-weight: 400; font-size: 12px; color: #888;">Hora de inicio</label>
-                    <input type="time" id="inicio" required>
-                </div>
-                <div>
-                    <label for="fin" style="font-weight: 400; font-size: 12px; color: #888;">Hora de fin</label>
-                    <input type="time" id="fin" required>
-                </div>
-            </div> -->
-            <div class="cronometro-container">
-                <div id="tiempo">00:00:00</div>
+            <div class="input-group">
+                <label>⏰ Tiempo de trabajo</label>
+                <div class="cronometro-container">
+                    <div id="tiempo">00:00:00</div>
 
-                <div class="botones">
-                    <button class="btn-inicio" onclick="iniciar()">Iniciar</button>
-                    <button class="btn-pausa" onclick="pausar()">Pausar</button>
-                    <button class="btn-reset" onclick="reiniciar()">Reiniciar</button>
+                    <div class="botones">
+                        <button class="btn-inicio" onclick="iniciar()">Iniciar</button>
+                        <button class="btn-pausa" onclick="pausar()">Pausar</button>
+                        <button class="btn-reset" onclick="reiniciar()">Reiniciar</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="input-group">
-            <label for="tarifa">💵 Tarifa por hora ($)</label>
-            <input type="number" id="tarifa" min="0" step="0.01" placeholder="Ej: 15.00" required>
-        </div>
+            <div class="input-group">
+                <label for="tarifa">💵 Tarifa por hora ($)</label>
+                <input type="number" id="tarifa" min="0" placeholder="Ej: 15.00" required>
+            </div>
 
-        <button class="calculate-btn" onclick="calcular()">Calcular Monto</button>
-
-        <div class="result" id="resultado">
-            <div class="result-item">
-                <span class="result-label">Cliente:</span>
-                <span class="result-value" id="resultCliente"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Descripción:</span>
-                <span class="result-value" id="resultDescripcion"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Fecha:</span>
-                <span class="result-value" id="resultFecha"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Horario:</span>
-                <span class="result-value" id="resultHorario"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Horas trabajadas:</span>
-                <span class="result-value" id="resultHoras"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">Tarifa por hora:</span>
-                <span class="result-value" id="resultTarifa"></span>
-            </div>
-            <div class="result-item">
-                <span class="result-label">MONTO TOTAL:</span>
-                <span class="result-value total" id="resultTotal"></span>
-            </div>
+            <button class="calculate-btn" onclick="calcular()">Calcular Monto</button>
         </div>
-
-        <div class="info-text">
-            💡 La calculadora considera el tiempo transcurrido entre las horas ingresadas
-        </div>
-        </div>
-
         <!-- Sección de Historial -->
         <div class="history-section">
             <div class="history-header">
@@ -102,23 +55,25 @@
             <div id="historial" class="history-list">
                 <p class="empty-history">No hay registros guardados</p>
             </div>
-            <div class="history-summary" id="resumenTotal" style="display: none;">
+            <div class="history-summary" id="resumenTotal">
                 <div class="summary-item">
                     <span>Total de trabajos:</span>
                     <span id="totalTrabajos">0</span>
                 </div>
                 <div class="summary-item">
                     <span>Horas totales:</span>
-                    <span id="totalHoras">0</span>
+                    <span id="totalHoras">0.00 hrs</span>
                 </div>
                 <div class="summary-item total-earned">
                     <span>Total ganado:</span>
                     <span id="totalGanado">$0.00</span>
                 </div>
             </div>
+            <button class="export-excel-btn" onclick="exportarAExcel()">📊 Exportar a Excel</button>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

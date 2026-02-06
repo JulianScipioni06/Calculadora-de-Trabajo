@@ -127,7 +127,7 @@ function calcular() {
     });
 }
 
-// --- GESTIÓN DE HISTORIAL (Sin cambios mayores) ---
+// --- GESTIÓN DE HISTORIAL ---
 function guardarEnHistorial(trabajo) {
     let historial = JSON.parse(localStorage.getItem('historialTrabajos')) || [];
     historial.unshift(trabajo);
@@ -138,35 +138,31 @@ function guardarEnHistorial(trabajo) {
 function cargarHistorial() {
     const historial = JSON.parse(localStorage.getItem('historialTrabajos')) || [];
     const historialDiv = document.getElementById('historial');
-    const resumenDiv = document.getElementById('resumenTotal');
     
     if (historial.length === 0) {
         historialDiv.innerHTML = '<p class="empty-history">No hay registros guardados</p>';
-        resumenDiv.style.display = 'none';
-        return;
+    } else {
+        historialDiv.innerHTML = historial.map((trabajo, index) => `
+            <div class="history-item">
+                <div class="history-item-header">
+                    <span class="history-item-date">📅 ${trabajo.fechaFormateada}</span>
+                    <div class="history-item-buttons">
+                        <button class="history-item-print" onclick="imprimirTicket(${index})">🖨️ Imprimir</button>
+                        <button class="history-item-delete" onclick="eliminarRegistro(${index})">✕</button>
+                    </div>
+                </div>
+                <div class="history-item-client">👤 ${trabajo.cliente}</div>
+                <div class="history-item-description">📝 ${trabajo.descripcion}</div>
+                <div class="history-item-details">
+                    <div>⏱️ Horas: ${trabajo.horasTrabajadas.toFixed(2)} hrs</div>
+                    <div>💵 Tarifa: $${trabajo.tarifa.toFixed(2)}/hr</div>
+                </div>
+                <div class="history-item-total">Total: $${trabajo.montoTotal.toFixed(2)}</div>
+            </div>
+        `).join('');
     }
     
-    historialDiv.innerHTML = historial.map((trabajo, index) => `
-        <div class="history-item">
-            <div class="history-item-header">
-                <span class="history-item-date">📅 ${trabajo.fechaFormateada}</span>
-                <div class="history-item-buttons">
-                    <button class="history-item-print" onclick="imprimirTicket(${index})">🖨️</button>
-                    <button class="history-item-delete" onclick="eliminarRegistro(${index})">✕</button>
-                </div>
-            </div>
-            <div class="history-item-client">👤 ${trabajo.cliente}</div>
-            <div class="history-item-description">📝 ${trabajo.descripcion}</div>
-            <div class="history-item-details">
-                <div>⏰ Horario: ${trabajo.horaInicio} - ${trabajo.horaFin}</div>
-                <div>⏱️ Horas: ${trabajo.horasTrabajadas.toFixed(2)} hrs</div>
-                <div>💵 Tarifa: $${trabajo.tarifa.toFixed(2)}/hr</div>
-            </div>
-            <div class="history-item-total">Total: $${trabajo.montoTotal.toFixed(2)}</div>
-        </div>
-    `).join('');
-    
-    // Calcular totales del historial
+    // Calcular totales del historial - SIEMPRE SE ACTUALIZA
     const totalTrabajos = historial.length;
     const totalHoras = historial.reduce((sum, t) => sum + t.horasTrabajadas, 0);
     const totalGanado = historial.reduce((sum, t) => sum + t.montoTotal, 0);
@@ -174,7 +170,6 @@ function cargarHistorial() {
     document.getElementById('totalTrabajos').textContent = totalTrabajos;
     document.getElementById('totalHoras').textContent = totalHoras.toFixed(2) + ' hrs';
     document.getElementById('totalGanado').textContent = '$' + totalGanado.toFixed(2);
-    resumenDiv.style.display = 'block';
 }
 
 function eliminarRegistro(index) {
@@ -235,4 +230,67 @@ function imprimirTicket(index) {
     `;
     ventanaImpresion.document.write(contenidoTicket);
     ventanaImpresion.document.close();
+}
+
+// --- FUNCIÓN PARA EXPORTAR A EXCEL ---
+function exportarAExcel() {
+    const historial = JSON.parse(localStorage.getItem('historialTrabajos')) || [];
+    
+    if (historial.length === 0) {
+        alert('No hay registros para exportar');
+        return;
+    }
+    
+    // Preparar datos para Excel
+    const datosExcel = historial.map(trabajo => ({
+        'Cliente': trabajo.cliente,
+        'Descripción': trabajo.descripcion,
+        'Fecha': trabajo.fecha,
+        'Hora Inicio': trabajo.horaInicio,
+        'Hora Fin': trabajo.horaFin,
+        'Horas Trabajadas': trabajo.horasTrabajadas.toFixed(2),
+        'Tarifa por Hora': trabajo.tarifa.toFixed(2),
+        'Monto Total': trabajo.montoTotal.toFixed(2)
+    }));
+    
+    // Agregar fila de totales
+    const totalHoras = historial.reduce((sum, t) => sum + t.horasTrabajadas, 0);
+    const totalGanado = historial.reduce((sum, t) => sum + t.montoTotal, 0);
+    
+    datosExcel.push({
+        'Cliente': '',
+        'Descripción': '',
+        'Fecha': '',
+        'Hora Inicio': '',
+        'Hora Fin': 'TOTAL:',
+        'Horas Trabajadas': totalHoras.toFixed(2),
+        'Tarifa por Hora': '',
+        'Monto Total': totalGanado.toFixed(2)
+    });
+    
+    // Crear libro de Excel
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(datosExcel);
+    
+    // Ajustar ancho de columnas
+    ws['!cols'] = [
+        { wch: 20 }, // Cliente
+        { wch: 40 }, // Descripción
+        { wch: 12 }, // Fecha
+        { wch: 12 }, // Hora Inicio
+        { wch: 12 }, // Hora Fin
+        { wch: 15 }, // Horas Trabajadas
+        { wch: 15 }, // Tarifa por Hora
+        { wch: 15 }  // Monto Total
+    ];
+    
+    // Agregar hoja al libro
+    XLSX.utils.book_append_sheet(wb, ws, 'Historial de Trabajos');
+    
+    // Generar nombre de archivo con fecha actual
+    const fechaActual = new Date().toISOString().split('T')[0];
+    const nombreArchivo = `Historial_Trabajos_${fechaActual}.xlsx`;
+    
+    // Descargar archivo
+    XLSX.writeFile(wb, nombreArchivo);
 }
