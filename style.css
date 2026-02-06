@@ -23,9 +23,35 @@ body {
     align-items: start;
 }
 
+/* Tablet (pantallas medianas) */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 450px 1fr;
+        gap: 20px;
+    }
+}
+
+/* Tablet pequeña */
 @media (max-width: 1024px) {
     .container {
         grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+    
+    body {
+        padding: 15px;
+        align-items: flex-start;
+    }
+}
+
+/* Móviles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        gap: 15px;
     }
 }
 
@@ -37,11 +63,38 @@ body {
     width: 100%;
 }
 
+/* Responsive calculator padding */
+@media (max-width: 768px) {
+    .calculator {
+        padding: 25px 20px;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        padding: 20px 15px;
+    }
+}
+
 h1 {
     color: #333;
     margin-bottom: 30px;
     font-size: 28px;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
 }
 
 .subtitle {
@@ -55,12 +108,24 @@ h1 {
     margin-bottom: 25px;
 }
 
+@media (max-width: 768px) {
+    .input-group {
+        margin-bottom: 20px;
+    }
+}
+
 label {
     display: block;
     color: #555;
     font-weight: 600;
     margin-bottom: 8px;
     font-size: 14px;
+}
+
+@media (max-width: 480px) {
+    label {
+        font-size: 13px;
+    }
 }
 
 input[type="time"],
@@ -75,6 +140,17 @@ textarea {
     font-size: 16px;
     transition: all 0.3s ease;
     font-family: inherit;
+}
+
+@media (max-width: 480px) {
+    input[type="time"],
+    input[type="number"],
+    input[type="date"],
+    input[type="text"],
+    textarea {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
 }
 
 textarea {
@@ -112,6 +188,20 @@ textarea:focus {
     margin-top: 10px;
 }
 
+@media (max-width: 768px) {
+    .calculate-btn {
+        padding: 14px;
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculate-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
 .calculate-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
@@ -127,6 +217,19 @@ textarea:focus {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     border-radius: 15px;
     display: none;
+}
+
+@media (max-width: 768px) {
+    .result {
+        padding: 20px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .result {
+        padding: 15px;
+    }
 }
 
 .result.show {
@@ -150,6 +253,14 @@ textarea:focus {
     justify-content: space-between;
     padding: 12px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    gap: 10px;
+}
+
+@media (max-width: 480px) {
+    .result-item {
+        padding: 10px 0;
+        font-size: 14px;
+    }
 }
 
 .result-item:last-child {
@@ -167,11 +278,18 @@ textarea:focus {
 .result-value {
     color: #333;
     font-weight: 700;
+    text-align: right;
 }
 
 .total {
     font-size: 24px;
     color: #667eea;
+}
+
+@media (max-width: 480px) {
+    .total {
+        font-size: 20px;
+    }
 }
 
 .currency-symbol {
@@ -210,17 +328,43 @@ textarea:focus {
     }
 }
 
+@media (max-width: 768px) {
+    .history-section {
+        padding: 25px 20px;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .history-section {
+        padding: 20px 15px;
+    }
+}
+
 .history-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 10px;
 }
 
 .history-header h2 {
     font-size: 20px;
     color: #333;
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    .history-header h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .history-header h2 {
+        font-size: 16px;
+    }
 }
 
 .clear-history-btn {
@@ -233,6 +377,14 @@ textarea:focus {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .clear-history-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 }
 
 .clear-history-btn:hover {
@@ -259,6 +411,13 @@ textarea:focus {
     font-style: italic;
 }
 
+@media (max-width: 480px) {
+    .empty-history {
+        padding: 20px;
+        font-size: 14px;
+    }
+}
+
 .history-item {
     background: #f5f5f5;
     border-left: 4px solid #000;
@@ -269,16 +428,20 @@ textarea:focus {
     transition: all 0.3s ease;
 }
 
-/* .history-item:hover {
-    background: #ebebeb;
-    transform: translateX(5px);
-} */
+@media (max-width: 480px) {
+    .history-item {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
 
 .history-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .history-item-date {
@@ -287,9 +450,24 @@ textarea:focus {
     font-size: 15px;
 }
 
+@media (max-width: 480px) {
+    .history-item-date {
+        font-size: 13px;
+        flex: 1 1 100%;
+    }
+}
+
 .history-item-buttons {
     display: flex;
     gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .history-item-buttons {
+        gap: 6px;
+        flex: 1 1 100%;
+        justify-content: flex-end;
+    }
 }
 
 .history-item-print {
@@ -301,6 +479,14 @@ textarea:focus {
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .history-item-print {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
 }
 
 .history-item-print:hover {
@@ -319,6 +505,13 @@ textarea:focus {
     transition: all 0.2s ease;
 }
 
+@media (max-width: 480px) {
+    .history-item-delete {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
 .history-item-delete:hover {
     background: #ff1744;
 }
@@ -333,6 +526,13 @@ textarea:focus {
     border-radius: 5px;
 }
 
+@media (max-width: 480px) {
+    .history-item-client {
+        font-size: 13px;
+        padding: 6px;
+    }
+}
+
 .history-item-description {
     font-size: 13px;
     color: #555;
@@ -344,6 +544,13 @@ textarea:focus {
     font-style: italic;
 }
 
+@media (max-width: 480px) {
+    .history-item-description {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
 .history-item-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -351,6 +558,13 @@ textarea:focus {
     font-size: 13px;
     color: #666;
     margin-bottom: 8px;
+}
+
+@media (max-width: 480px) {
+    .history-item-details {
+        font-size: 12px;
+        gap: 6px;
+    }
 }
 
 .history-item-total {
@@ -363,12 +577,24 @@ textarea:focus {
     border-top: 1px solid #ddd;
 }
 
+@media (max-width: 480px) {
+    .history-item-total {
+        font-size: 16px;
+    }
+}
+
 .history-summary {
     background: #f5f5f5;
     color: black;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+    .history-summary {
+        padding: 15px;
+    }
 }
 
 .summary-item {
@@ -378,12 +604,25 @@ textarea:focus {
     font-size: 14px;
 }
 
+@media (max-width: 480px) {
+    .summary-item {
+        font-size: 13px;
+        padding: 6px 0;
+    }
+}
+
 .summary-item.total-earned {
     font-size: 20px;
     font-weight: 700;
     padding-top: 15px;
     margin-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 480px) {
+    .summary-item.total-earned {
+        font-size: 18px;
+    }
 }
 
 /* Scrollbar personalizado */
@@ -414,6 +653,18 @@ textarea:focus {
     text-align: center;
 }
 
+@media (max-width: 768px) {
+    .cronometro-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cronometro-container {
+        padding: 1rem;
+    }
+}
+
 #tiempo {
     font-size: 4rem;
     font-weight: bold;
@@ -422,14 +673,43 @@ textarea:focus {
     font-family: monospace;
 }
 
+@media (max-width: 768px) {
+    #tiempo {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #tiempo {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+}
+
+.botones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .botones button {
     padding: 10px 20px;
     font-size: 1rem;
-    margin: 0 5px;
+    margin: 0;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     transition: background 0.3s;
+}
+
+@media (max-width: 480px) {
+    .botones button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        flex: 1;
+        min-width: 80px;
+    }
 }
 
 .btn-inicio { background-color: #28a745; color: white; }
@@ -453,6 +733,13 @@ textarea:focus {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .export-excel-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
 
 .export-excel-btn:hover {
