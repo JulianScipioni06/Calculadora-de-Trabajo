@@ -81,8 +81,11 @@
         <div class="history-section">
             <div class="history-header">
                 <h2>📋 Historial de Trabajos</h2>
-                <button class="btn-config" onclick="abrirConfig()">⚙️ Ajustes</button>
-                <button class="clear-history-btn" onclick="limpiarHistorial()">🗑️ Limpiar</button>
+                
+                <div class="history-actions">
+                    <button class="btn-config" onclick="abrirConfig()" title="Configuración">⚙️</button>
+                    <button class="clear-history-btn" onclick="limpiarHistorial()">🗑️ Limpiar</button>
+                </div>
             </div>
             <div id="historial" class="history-list">
                 <p class="empty-history">No hay registros guardados</p>

@@ -753,36 +753,39 @@ textarea:focus {
 }
 
 /* --- ESTILOS DEL BOTÓN DE AJUSTES Y CABECERA --- */
+/* --- CABECERA DEL HISTORIAL --- */
 .history-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Título a la izq, botones a la der */
     align-items: center;
     margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
 }
 
+/* Esta es la cajita que mantiene los botones pegados */
 .history-actions {
     display: flex;
-    gap: 10px;
+    gap: 10px; /* Espacio de separación entre el engranaje y el basurero */
 }
 
+/* Estilo del botón de ajustes */
 .btn-config {
-    background-color: #6c757d; /* Color gris profesional */
-    color: white;
+    background-color: #e2e8f0; /* Un gris suave */
     border: none;
-    padding: 5px 12px;
-    border-radius: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s;
+    font-size: 1.2rem;
+    transition: background 0.2s, transform 0.1s;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
 }
 
 .btn-config:hover {
-    background-color: #5a6268;
+    background-color: #cbd5e0; /* Gris un poco más oscuro al pasar el mouse */
+    transform: rotate(45deg); /* Efecto visual: gira un poco al tocarlo */
 }
 
 /* --- ESTILOS DE LA VENTANA MODAL (AJUSTES) --- */
