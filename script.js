@@ -396,6 +396,14 @@ function validarLicencia() {
     // Generamos el código esperado para ese nombre
     const codigoEsperado = generarCodigoReal(nombre);
 
+    // --- AGREGA ESTO TEMPORALMENTE (EL CHIVATO) ---
+    console.log("--------------------------------");
+    console.log("Nombre detectado:", nombre);
+    console.log("Código que escribiste:", codigoIngresado);
+    console.log("Código que la App ESPERA:", codigoEsperado); // <--- ESTA ES LA CLAVE REAL
+    console.log("--------------------------------");
+    // ----------------------------------------------
+
     if (codigoIngresado === codigoEsperado) {
         alert("¡Licencia Correcta! Bienvenido.");
         localStorage.setItem('appLicense', 'ACTIVA');
