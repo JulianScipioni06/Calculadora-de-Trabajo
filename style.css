@@ -772,7 +772,7 @@ textarea:focus {
 /* Estilo del botón de ajustes */
 .btn-config {
     padding: 8px 15px;
-    background: #e2e8f0;
+    background: #4a5568;
     color: white;
     border: none;
     border-radius: 8px;
@@ -791,7 +791,7 @@ textarea:focus {
 }
 
 .btn-config {
-    background: #cbd5e0;
+    background: #2d3748;
 }
 
 /* --- ESTILOS DE LA VENTANA MODAL (AJUSTES) --- */
