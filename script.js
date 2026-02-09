@@ -359,3 +359,57 @@ function abrirConfig() {
 function cerrarConfig() {
     document.getElementById('modalConfig').style.display = 'none';
 }
+
+// --- SISTEMA DE LOGIN / SEGURIDAD ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    verificarEstadoLogin();
+});
+
+function verificarEstadoLogin() {
+    const pinGuardado = localStorage.getItem('appPIN');
+    const pantalla = document.getElementById('pantallaLogin');
+    const titulo = document.getElementById('tituloLogin');
+    const mensaje = document.getElementById('mensajeLogin');
+    const boton = document.querySelector('.btn-login');
+
+    if (!pinGuardado) {
+        // MODO: REGISTRO (Primera vez)
+        titulo.innerText = "🛡️ Crear Seguridad";
+        mensaje.innerText = "Crea un PIN de 4 dígitos para empezar.";
+        boton.innerText = "Guardar y Entrar";
+    } else {
+        // MODO: LOGIN (Ya existe usuario)
+        titulo.innerText = "🔒 Bloqueado";
+        mensaje.innerText = "Ingresa tu PIN para acceder.";
+        boton.innerText = "Desbloquear";
+    }
+}
+
+function verificarPin() {
+    const input = document.getElementById('inputPin');
+    const pinIngresado = input.value;
+    const pinGuardado = localStorage.getItem('appPIN');
+    const pantalla = document.getElementById('pantallaLogin');
+
+    if (pinIngresado.length < 4) {
+        alert("El PIN debe tener 4 números.");
+        return;
+    }
+
+    if (!pinGuardado) {
+        // GUARDAR NUEVO PIN
+        localStorage.setItem('appPIN', pinIngresado);
+        alert("¡PIN Guardado! No lo olvides.");
+        pantalla.style.display = 'none'; // Quitar candado
+    } else {
+        // VERIFICAR PIN EXISTENTE
+        if (pinIngresado === pinGuardado) {
+            pantalla.style.display = 'none'; // Quitar candado (Acceso concedido)
+        } else {
+            alert("❌ PIN Incorrecto");
+            input.value = ""; // Limpiar campo
+            input.focus();
+        }
+    }
+}

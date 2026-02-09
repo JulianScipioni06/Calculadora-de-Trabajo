@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="pantallaLogin" class="login-overlay">
+        <div class="login-box">
+            <h2 id="tituloLogin">🔒 Seguridad</h2>
+            <p id="mensajeLogin">Crea un PIN para proteger tus datos</p>
+            
+            <input type="password" id="inputPin" placeholder="****" maxlength="4" class="pin-input">
+            
+            <button onclick="verificarPin()" class="btn-login">Entrar</button>
+            
+            <p class="login-footer">Tus datos están seguros en este dispositivo</p>
+        </div>
+    </div>
     <div class="container">
         <div class="calculator">
             <h1>💼 Calculadora de Trabajo</h1>
