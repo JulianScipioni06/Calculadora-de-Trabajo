@@ -360,56 +360,67 @@ function cerrarConfig() {
     document.getElementById('modalConfig').style.display = 'none';
 }
 
-// --- SISTEMA DE LOGIN / SEGURIDAD ---
+// --- SISTEMA DE LICENCIAS (ANTI-PIRATERÍA) ---
+
+// Esta es tu "Llave Maestra". ¡No se la des a nadie!
+// Úsala para generar los códigos.
+const CLAVE_SECRETA_BIOS = "BIOS2025"; 
 
 document.addEventListener('DOMContentLoaded', () => {
-    verificarEstadoLogin();
+    verificarLicencia();
 });
 
-function verificarEstadoLogin() {
-    const pinGuardado = localStorage.getItem('appPIN');
-    const pantalla = document.getElementById('pantallaLogin');
-    const titulo = document.getElementById('tituloLogin');
-    const mensaje = document.getElementById('mensajeLogin');
-    const boton = document.querySelector('.btn-login');
-
-    if (!pinGuardado) {
-        // MODO: REGISTRO (Primera vez)
-        titulo.innerText = "🛡️ Crear Seguridad";
-        mensaje.innerText = "Crea un PIN de 4 dígitos para empezar.";
-        boton.innerText = "Guardar y Entrar";
+function verificarLicencia() {
+    const licenciaGuardada = localStorage.getItem('appLicense');
+    
+    // Si NO tiene licencia guardada, mostramos el bloqueo
+    if (licenciaGuardada !== 'ACTIVA') {
+        document.getElementById('pantallaLicencia').style.display = 'flex';
+        // Bloqueamos el scroll del fondo
+        document.body.style.overflow = 'hidden';
     } else {
-        // MODO: LOGIN (Ya existe usuario)
-        titulo.innerText = "🔒 Bloqueado";
-        mensaje.innerText = "Ingresa tu PIN para acceder.";
-        boton.innerText = "Desbloquear";
+        // Si YA pagó, ocultamos el bloqueo
+        document.getElementById('pantallaLicencia').style.display = 'none';
     }
 }
 
-function verificarPin() {
-    const input = document.getElementById('inputPin');
-    const pinIngresado = input.value;
-    const pinGuardado = localStorage.getItem('appPIN');
-    const pantalla = document.getElementById('pantallaLogin');
-
-    if (pinIngresado.length < 4) {
-        alert("El PIN debe tener 4 números.");
+function validarLicencia() {
+    const nombre = document.getElementById('inputNombreLicencia').value.toUpperCase().trim();
+    const codigoIngresado = document.getElementById('inputCodigoLicencia').value.trim();
+    
+    if (nombre.length < 3) {
+        alert("El nombre debe tener al menos 3 letras.");
         return;
     }
 
-    if (!pinGuardado) {
-        // GUARDAR NUEVO PIN
-        localStorage.setItem('appPIN', pinIngresado);
-        alert("¡PIN Guardado! No lo olvides.");
-        pantalla.style.display = 'none'; // Quitar candado
+    // Generamos el código esperado para ese nombre
+    const codigoEsperado = generarCodigoReal(nombre);
+
+    if (codigoIngresado === codigoEsperado) {
+        alert("¡Licencia Correcta! Bienvenido.");
+        localStorage.setItem('appLicense', 'ACTIVA');
+        location.reload(); // Recargamos para entrar
     } else {
-        // VERIFICAR PIN EXISTENTE
-        if (pinIngresado === pinGuardado) {
-            pantalla.style.display = 'none'; // Quitar candado (Acceso concedido)
-        } else {
-            alert("❌ PIN Incorrecto");
-            input.value = ""; // Limpiar campo
-            input.focus();
-        }
+        alert("❌ Código incorrecto. Esta licencia no pertenece a este nombre.");
     }
+}
+
+// ALGORITMO DE GENERACIÓN (Simple pero efectivo)
+function generarCodigoReal(nombre) {
+    // 1. Usamos tu palabra secreta + el nombre del cliente
+    let mezcla = CLAVE_SECRETA_BIOS + nombre;
+    
+    // 2. Operación matemática simple para crear un "Hash" (número único)
+    let hash = 0;
+    for (let i = 0; i < mezcla.length; i++) {
+        let char = mezcla.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convertir a 32bit integer
+    }
+    
+    // 3. Convertimos ese número loco en algo legible (Hexadecimal)
+    let codigo = Math.abs(hash).toString(16).toUpperCase();
+    
+    // 4. Le damos formato XXXX (tomamos los primeros 4 o 5 caracteres)
+    return "KEY-" + codigo.substring(0, 4); 
 }
