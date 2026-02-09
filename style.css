@@ -771,21 +771,28 @@ textarea:focus {
 
 /* Estilo del botón de ajustes */
 .btn-config {
-    background-color: #e2e8f0; /* Un gris suave */
+    padding: 8px 15px;
+    background: #e2e8f0;
+    color: white;
     border: none;
-    padding: 8px 12px;
     border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 1.2rem;
-    transition: background 0.2s, transform 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.btn-config:hover {
-    background-color: #cbd5e0; /* Gris un poco más oscuro al pasar el mouse */
-    transform: rotate(45deg); /* Efecto visual: gira un poco al tocarlo */
+@media (max-width: 480px) {
+    .btn-config {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+.btn-config {
+    background: #cbd5e0;
+    transform: translateY(-2px);
 }
 
 /* --- ESTILOS DE LA VENTANA MODAL (AJUSTES) --- */
@@ -811,6 +818,11 @@ textarea:focus {
     max-width: 400px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .modal-content h3 {
