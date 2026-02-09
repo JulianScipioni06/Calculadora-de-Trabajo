@@ -192,6 +192,10 @@ function limpiarHistorial() {
 function imprimirTicket(index) {
     const historial = JSON.parse(localStorage.getItem('historialTrabajos')) || [];
     const trabajo = historial[index];
+    
+    // --- CORRECCIÓN: Recuperamos la configuración aquí dentro ---
+    const config = JSON.parse(localStorage.getItem('appConfig')) || { nombreNegocio: "Tu Empresa" };
+    
     if (!trabajo) return;
     
     const ventanaImpresion = window.open('', '_blank', 'width=400,height=600');
@@ -216,7 +220,7 @@ function imprimirTicket(index) {
         <body>
             <div class="ticket">
                 <div class="header">
-                    <h3>BIOS INFORMATICA</h3>
+                    <h3>${config.nombreNegocio.toUpperCase()}</h3>
                     <p>Comprobante de Servicio</p>
                 </div>
                 <div class="section"><div class="label">CLIENTE</div><div class="value">${trabajo.cliente}</div></div>
@@ -293,4 +297,68 @@ function exportarAExcel() {
     
     // Descargar archivo
     XLSX.writeFile(wb, nombreArchivo);
+}
+
+// --- LÓGICA DE PERSONALIZACIÓN ---
+
+// 1. Cargar configuración al iniciar la app
+document.addEventListener('DOMContentLoaded', () => {
+    const config = JSON.parse(localStorage.getItem('appConfig'));
+    if (config) {
+        aplicarPersonalizacion(config);
+    } else {
+        // Si es la primera vez, abrimos el menú para que configuren
+        setTimeout(abrirConfig, 1000);
+    }
+});
+
+function aplicarPersonalizacion(config) {
+    // Cambiar el título principal
+    const titulo = document.querySelector('h1');
+    if (titulo) titulo.innerText = "💼 " + config.nombreNegocio;
+    
+    // Cambiar el título de la pestaña del navegador
+    document.title = config.nombreNegocio + " - Calculadora";
+
+    // Cambiar el color de fondo (el gradiente)
+    if (config.colorPrincipal) {
+        document.body.style.background = config.colorPrincipal;
+        // Opcional: Cambiar botones también
+        const botones = document.querySelectorAll('.calculate-btn, .btn-inicio');
+        botones.forEach(btn => btn.style.backgroundColor = config.colorPrincipal);
+    }
+}
+
+function guardarConfig() {
+    const nombre = document.getElementById('configNombre').value;
+    const color = document.getElementById('configColor').value;
+
+    if (nombre.trim() === "") {
+        alert("Por favor pon un nombre");
+        return;
+    }
+
+    const config = {
+        nombreNegocio: nombre,
+        colorPrincipal: color
+    };
+
+    localStorage.setItem('appConfig', JSON.stringify(config));
+    aplicarPersonalizacion(config);
+    cerrarConfig();
+}
+
+// Funciones para abrir/cerrar modal
+function abrirConfig() {
+    document.getElementById('modalConfig').style.display = 'flex';
+    // Rellenar con datos actuales si existen
+    const config = JSON.parse(localStorage.getItem('appConfig'));
+    if (config) {
+        document.getElementById('configNombre').value = config.nombreNegocio;
+        document.getElementById('configColor').value = config.colorPrincipal;
+    }
+}
+
+function cerrarConfig() {
+    document.getElementById('modalConfig').style.display = 'none';
 }
