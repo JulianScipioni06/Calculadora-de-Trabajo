@@ -306,10 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = JSON.parse(localStorage.getItem('appConfig'));
     if (config) {
         aplicarPersonalizacion(config);
-    } else {
-        // Si es la primera vez, abrimos el menú para que configuren
-        setTimeout(abrirConfig, 1000);
-    }
+    } 
 });
 
 function aplicarPersonalizacion(config) {

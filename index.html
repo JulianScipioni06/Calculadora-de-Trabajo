@@ -81,6 +81,7 @@
         <div class="history-section">
             <div class="history-header">
                 <h2>📋 Historial de Trabajos</h2>
+                <button class="btn-config" onclick="abrirConfig()">⚙️ Ajustes</button>
                 <button class="clear-history-btn" onclick="limpiarHistorial()">🗑️ Limpiar</button>
             </div>
             <div id="historial" class="history-list">
@@ -98,6 +99,24 @@
                 <div class="summary-item total-earned">
                     <span>Total ganado:</span>
                     <span id="totalGanado">$0.00</span>
+                </div>
+            </div>
+            <div id="modalConfig" class="modal-overlay">
+                <div class="modal-content">
+                    <h3>⚙️ Configura tu Negocio</h3>
+                    
+                    <label>Nombre de tu Empresa:</label>
+                    <input type="text" id="configNombre" placeholder="Ej: Juan Electricidad">
+                    
+                    <label>Color de la App:</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="configColor" value="#667eea">
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button class="btn-cancelar" onclick="cerrarConfig()">Cancelar</button>
+                        <button class="btn-guardar" onclick="guardarConfig()">Guardar Cambios</button>
+                    </div>
                 </div>
             </div>
             <button class="export-excel-btn" onclick="exportarAExcel()">📊 Exportar a Excel</button>
